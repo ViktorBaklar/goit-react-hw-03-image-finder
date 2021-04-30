@@ -1,9 +1,9 @@
 import style from './SearchBar.module.css'
 import SearchForm from '../SearchForm'
 
-const SearchBar = () => (
+const SearchBar = ({ onSubmit }) => (
   <header className={style.Searchbar}>
-    <SearchForm></SearchForm>
+    <SearchForm onSubmit={onSubmit}></SearchForm>
   </header>
 )
 

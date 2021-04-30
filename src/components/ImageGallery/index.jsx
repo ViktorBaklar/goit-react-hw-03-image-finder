@@ -1,9 +1,11 @@
 import style from './ImageGallery.module.css'
 import ImageGalleryItem from '../ImageGalleryItem'
 
-const ImageGallery = () => (
+const ImageGallery = (items) => (
   <ul className={style.ImageGallery}>
-    <ImageGalleryItem></ImageGalleryItem>
+    {items.map(({ id, webformatURL, largeImageURL }) => (<ImageGalleryItem key={id}
+      image={webformatURL}
+      /* onClick={handleItemClick} */ />))}
   </ul>
 )
 

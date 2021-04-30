@@ -1,9 +1,17 @@
 import style from './ImageGalleryItem.module.css'
+import PropTypes from 'prop-types';
 
-const ImageGalleryItem = () => (
+const ImageGalleryItem = ({ image, onClick }) => (
   <li className={style.ImageGalleryItem}>
-    <img src="" alt="" className={style.ImageGalleryItemImage} />
+    <img src={image} alt="" className={style.ImageGalleryItemImage} onClick={onClick} />
   </li>
 )
+
+ImageGalleryItem.propTypes = {
+  webformatURL: PropTypes.string,
+  largeImageURL: PropTypes.string,
+  tags: PropTypes.string,
+  bigImage: PropTypes.func,
+};
 
 export default ImageGalleryItem
