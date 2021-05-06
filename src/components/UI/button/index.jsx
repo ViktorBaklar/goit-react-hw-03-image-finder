@@ -5,6 +5,7 @@ const Button = ({
   children,
   type,
   onClick,
+  onSubmit
 }) => {
   const classList = [style.button, className].join(' ');
 
@@ -13,6 +14,7 @@ const Button = ({
       className={classList}
       type={type}
       onClick={onClick}
+      onSubmit={onSubmit}
     >
       {children}
     </button>

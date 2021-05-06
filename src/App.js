@@ -5,6 +5,9 @@ import apiPixabayService from './services/apiPixabayService'
 import Container from './components/UI/container'
 import SearchBar from './components/SearchBar'
 import ImageGallery from './components/ImageGallery'
+import Modal from './components/Modal'
+import Loader from './components/Loader'
+import Button from "./components/UI/button";
 
 class App extends Component {
   state = {
@@ -13,7 +16,7 @@ class App extends Component {
     query: '',
     largeImage: '',
     imgTags: '',
-    error: '',
+    error: null,
     showModal: false,
     isLoading: false,
   };
@@ -44,16 +47,31 @@ class App extends Component {
       .then(pictures => {
         this.setState(prevState => ({
           pictures: [...prevState.pictures, ...pictures],
-          page: prevState.page + 1,
+          /* page: prevState.page + 1, */
         }));
       })
-      .catch(error => this.setState({ error: 'Picture not found' }))
+      .catch(error => this.setState({ error }))
       .finally(() => this.setState({ isLoading: false }));
   };
+
   onChangeQwery = query => {
     this.setState({ query: query, page: 1, pictures: [], error: null });
   };
 
+  onImageClick = (picture, tags) => {
+    this.setState({ showModal: true, largeImage: picture, imgTags: tags });
+  };
+
+  toggleModal = () => {
+    this.setState(prevState => ({ showModal: !prevState.showModal }));
+  };
+
+  loadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+    this.fetchPictures();
+  };
 
   render() {
     const {
@@ -68,8 +86,18 @@ class App extends Component {
       <div className="App" >
         <Container>
           <SearchBar onSubmit={this.onChangeQwery} ></SearchBar>
-          <ImageGallery items={pictures}></ImageGallery>
+          <ImageGallery items={pictures} onClick={this.onImageClick}></ImageGallery>
+          <Button onClick={this.loadMore}>Load More</Button>
+          {isLoading && <Loader />}
+          {error && (
+            <p style={{ textAlign: 'center' }}>
+              Something wrong. Please try again.
+            </p>
+          )}
         </Container>
+        {showModal && (
+          <Modal url={largeImage} alt={imgTags} onClose={this.toggleModal} />
+        )}
       </div>
     );
   }

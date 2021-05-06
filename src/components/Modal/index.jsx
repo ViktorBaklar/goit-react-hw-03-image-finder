@@ -1,11 +1,36 @@
-import * as basicLightbox from 'basiclightbox'
+import style from './modal.module.css';
+import { createPortal } from 'react-dom';
+import { Component } from 'react';
 
-const instance = basicLightbox.create(`
-  <div className="Overlay">
-    <div className="Modal">
-      <img src="" alt="" />
-    </div>
-  </div>
-`)
+// const modalRoot = document.querySelector('#modal-root');
+const modalRoot = document.getElementById('modal-root');
 
-instance.show()
+class Modal extends Component {
+  componentDidMount() {
+    window.addEventListener('keydown', this.hendelKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.hendelKeyDown);
+  }
+  hendelKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.props.showModal();
+    }
+  };
+  hendelBecdropClick = e => {
+    if (e.currentTarget === e.target) {
+      this.props.showModal();
+    }
+  };
+
+  render() {
+    return createPortal(
+      <div className={style.Overlay} onClick={this.hendelBecdropClick}>
+        <div className={style.Modal}>{this.props.children}</div>
+      </div>,
+      modalRoot,
+    );
+  }
+}
+export default Modal;
