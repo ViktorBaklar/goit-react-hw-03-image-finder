@@ -1,11 +1,11 @@
 import style from './button.module.css';
+import PropTypes from 'prop-types';
 
 const Button = ({
   className,
   children,
   type,
-  onClick,
-  onSubmit
+  onClick
 }) => {
   const classList = [style.button, className].join(' ');
 
@@ -14,11 +14,15 @@ const Button = ({
       className={classList}
       type={type}
       onClick={onClick}
-      onSubmit={onSubmit}
     >
       {children}
     </button>
   );
+};
+
+Button.propTypes = {
+  type: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default Button;

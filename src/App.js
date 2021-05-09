@@ -47,7 +47,7 @@ class App extends Component {
       .then(pictures => {
         this.setState(prevState => ({
           pictures: [...prevState.pictures, ...pictures],
-          /* page: prevState.page + 1, */
+          page: prevState.page + 1,
         }));
       })
       .catch(error => this.setState({ error }))
@@ -87,16 +87,20 @@ class App extends Component {
         <Container>
           <SearchBar onSubmit={this.onChangeQwery} ></SearchBar>
           <ImageGallery items={pictures} onClick={this.onImageClick}></ImageGallery>
-          <Button onClick={this.loadMore}>Load More</Button>
-          {isLoading && <Loader />}
+          {pictures.length > 11 && !isLoading && (
+            <Button type="button" className="button-load-more" onClick={this.loadMore}>Load More</Button>
+          )}
           {error && (
             <p style={{ textAlign: 'center' }}>
               Something wrong. Please try again.
             </p>
           )}
         </Container>
+        {isLoading && <Loader />}
         {showModal && (
-          <Modal url={largeImage} alt={imgTags} onClose={this.toggleModal} />
+          <Modal onClose={this.toggleModal} >
+            <img src={largeImage} alt={imgTags} />
+          </Modal>
         )}
       </div>
     );

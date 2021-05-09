@@ -8,10 +8,9 @@ const ImageGalleryItem = ({ image, alt, onClick }) => (
 )
 
 ImageGalleryItem.propTypes = {
-  webformatURL: PropTypes.string,
-  largeImageURL: PropTypes.string,
-  tags: PropTypes.string,
-  bigImage: PropTypes.func,
+  image: PropTypes.string,
+  alt: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ImageGalleryItem

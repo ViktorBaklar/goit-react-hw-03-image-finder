@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import style from './SearchForm.module.css'
 import Button from '../UI/button'
 import Input from '../UI/input'
@@ -38,8 +38,8 @@ class SearchForm extends Component {
   }
 }
 
-// SearchForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
+SearchForm.propTypes = {
+  qwery: PropTypes.string,
+};
 
 export default SearchForm
